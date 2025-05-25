@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Il mistero della torta scomparsa</title>
+  <style>
+    body {
+      background: #1c1c1c;
+      color: #f0f0f0;
+      font-family: 'Georgia', serif;
+      padding: 5vw;
+      text-align: center;
+      font-size: 1.1em;
+    }
+
+    .box {
+      background: #2b2b2b;
+      border: 2px solid #777;
+      border-radius: 10px;
+      max-width: 800px;
+      margin: 5vh auto;
+      padding: 5vw;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 1em;
+      border: none;
+      border-radius: 6px;
+      background-color: #d4af37;
+      color: #000;
+      cursor: pointer;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .suspect-btn {
+      display: block;
+      width: 100%;
+      max-width: 400px;
+      margin: 12px auto;
+      padding: 12px;
+      border-radius: 5px;
+      background: #444;
+      border: 1px solid #999;
+      cursor: pointer;
+      font-size: 1em;
+    }
+
+    #result {
+      font-size: 1.6em;
+      margin-top: 20px;
+      color: #ffe200;
+    }
+  </style>
+</head>
+<body>
+  <div class="box" id="intro">
+    <h1>Il mistero della torta scomparsa</h1>
+    <p>Una torta di compleanno è misteriosamente svanita!</p>
+    <p>Poirot ha interrogato tutti. Spetta a te trovare il bugiardo.</p>
+    <button onclick="startCase()">Inizia l’indagine</button>
+  </div>
+
+  <div class="box hidden" id="clues">
+    <h2>Testimonianze dei sospetti</h2>
+    <p><strong>Stefano:</strong> “Io odio i compleanni. Stavo al pc, da solo. Ma verso le 17 ho sentito un rumore in cucina.”</p>
+    <p><strong>Nonno:</strong> “Oh là là... Torta? Quale torta? Ah… La torta era sul tavolo alle 17:15, ne sono certo!”</p>
+    <p><strong>Holograms:</strong> “Alle persone ormai non interessa più le torte tradizionali. Io ero in biblioteca a sorseggiare tè con un libro cartaceo, ovviamente.”</p>
+    <p><strong>Veronica:</strong> “Io dormivo, ok? Il party di ieri mi ha uccisa. Testa che gira e sogni strani.”</p>
+    <p><strong>Megumi:</strong> “I posted my story on Insta at 17:10… No cake on table. Very empty. Strange, desu yo.”</p>
+    <button onclick="nextStage()">Procedi con l'accusa</button>
+  </div>
+
+  <div class="box hidden" id="choice">
+    <h2>Chi mente secondo te?</h2>
+    <p>Ragiona bene. Chi ha dato un’informazione impossibile?</p>
+    <button class="suspect-btn" onclick="choose('Luca')">Luca</button>
+    <button class="suspect-btn" onclick="choose('Nonno')">Nonno</button>
+    <button class="suspect-btn" onclick="choose('Holograms')">Holograms</button>
+    <button class="suspect-btn" onclick="choose('Veronica')">Veronica</button>
+    <button class="suspect-btn" onclick="choose('Megumi')">Megumi</button>
+  </div>
+
+  <div class="box hidden" id="conclusion">
+    <p id="verdict"></p>
+    <div id="result" class="hidden">Buon compleanno, Alejandro!</div>
+  </div>
+
+  <script>
+    function startCase() {
+      document.getElementById("intro").classList.add("hidden");
+      document.getElementById("clues").classList.remove("hidden");
+    }
+
+    function nextStage() {
+      document.getElementById("clues").classList.add("hidden");
+      document.getElementById("choice").classList.remove("hidden");
+    }
+
+    function choose(suspect) {
+      document.getElementById("choice").classList.add("hidden");
+      document.getElementById("conclusion").classList.remove("hidden");
+
+      const verdict = document.getElementById("verdict");
+      const result = document.getElementById("result");
+
+      if (suspect === "Nonno") {
+        verdict.innerHTML = `
+          <strong>Bravo!</strong><br>
+          Nonno mente: dice di aver visto la torta alle 17:15,<br>
+          ma Megumi ha postato una story alle 17:10 e la tavola era già vuota.<br>
+          Poirot annuisce lentamente. Il mistero è risolto.
+        `;
+        result.classList.remove("hidden");
+      } else {
+        verdict.innerHTML = `
+          <strong>Hmm... non è ${suspect}.</strong><br>
+          Rileggi bene gli orari. Solo uno fornisce un dettaglio<br>
+          smentito da una prova oggettiva: la foto di Megumi.
+        `;
+        result.classList.add("hidden");
+      }
+    }
+  </script>
+</body>
+</html>
